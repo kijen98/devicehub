@@ -1,6 +1,11 @@
 #!/bin/bash
 
-#curl -fsSL https://get.docker.com/ | sudo sh
+docker -v
+
+if [ $? != "0" ]
+then
+	curl -fsSL https://get.docker.com/ | sudo sh
+fi
 
 sudo docker stop devicehub_api
 sudo docker rm devicehub_api
