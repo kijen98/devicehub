@@ -1,9 +1,9 @@
 Welcome to DeviceHub!
 This cooperative IOT development application is very simple to use.
 
-Just execute ./run_devicehub_(your architecture).sh (your projectID) in your device.
+Just execute ./run_devicehub.sh (your architecture) (your projectID) in your device.
 For example, your Raspberry pi is armv7l architecture for Myproject0105,
-./run_devicehub_armv7l.sh Myproject0105
+./run_devicehub.sh armv7l Myproject0105
 
 And install DeviceHub application in your android smartphone.
 
