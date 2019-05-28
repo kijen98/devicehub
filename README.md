@@ -14,4 +14,6 @@ You can also register docker run option, too.
 
 If you want to register device for another projectID, just input same execution for that ID.
 
+If you want to stop Devicehub, than just execute ./stop_devicehub.sh
+
 Feel Fun!

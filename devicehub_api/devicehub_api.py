@@ -34,8 +34,12 @@ class AsyncTask:
         self.run_option = []
 
         for key in dict.keys():
-            self.image_name.append(dict[key]['name'])
-            self.run_option.append(dict[key]['option'])
+            if len(dict[key].keys()) == 2:
+                self.image_name.append(dict[key]['name'])
+                self.run_option.append(dict[key]['option'])
+            else:
+                self.image_name.append("")
+                self.run_option.append("")
 
         det_change = 0
         if len(self.image_name) != len(self.old_image_name):
@@ -59,8 +63,8 @@ class AsyncTask:
             container_name.append("container_" + str(i))
             print(self.image_name[i] + ' ' + self.run_option[i])
 
-        os.system(
-            "sudo docker stop $(sudo docker ps -a | grep -i \"container\"| awk 'NR>1 {print $1}') && sudo docker rm $(sudo docker ps -a | grep -i \"container\"| awk 'NR>1 {print $1}') || true")
+        os.system("sudo docker stop container_0 $(sudo docker ps -a | grep -i \"container\"| awk 'NR>1 {print $1}')")
+        os.system("sudo docker rm container_0 $(sudo docker ps -a | grep -i \"container\"| awk 'NR>1 {print $1}')")
 
         for i in range(len(container_name)):
             command = "sudo docker run -d " + self.run_option[i] + " --name " + container_name[i] + " " + self.image_name[i]
@@ -91,25 +95,35 @@ class AsyncTask:
         threading.Timer(5, self.exec_by_config, ).start()
 
 if __name__ == '__main__':
-    ip_address_dot = getdeviceip().split('.')
-    ip_address = ''
-    for i in range(len(ip_address_dot) - 1):
-        ip_address = ip_address + ip_address_dot[i] + '-'
-    ip_address = ip_address + ip_address_dot[len(ip_address_dot) - 1]
-
     if len(sys.argv) == 1:
         print("No projectID, Please input project ID")
         exit(1)
-    projectID = sys.argv[1]
 
+    projectID = sys.argv[1]
     cred = credentials.Certificate('./serviceAccountKey.json')
     firebase_admin = firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://devicehub-e7c8d.firebaseio.com/'
     })
 
-    projectref = 'projects/' + projectID
-    # deviceref = projectref + '/device/' + ip_address
-    deviceref = projectref + '/device/' + '192-168-00-01'
+    try_time = 0
+    while True:
+        try_time += 1
+        ip_address_dot = getdeviceip().split('.')
+        ip_address = ''
+        for i in range(len(ip_address_dot) - 1):
+            ip_address = ip_address + ip_address_dot[i] + '-'
+        ip_address = ip_address + ip_address_dot[len(ip_address_dot) - 1]
+
+        projectref = 'projects/' + projectID
+        deviceref = projectref + '/device/' + ip_address
+        testref = db.reference(deviceref)
+
+        if len(testref.get().keys()) != 2:
+            print("There is no device config in Project... Try to refinding " + str(try_time))
+            sys.stdout.write("\033[F")
+            time.sleep(5)
+        else:
+            break
 
     task = AsyncTask(deviceref)
     task.exec_by_config()
