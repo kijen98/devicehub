@@ -5,5 +5,4 @@ RUN apt-get install sudo
 RUN apt-get install iputils-ping -y
 
 RUN apt-get install python-pip -y
-RUN pip install requests
-RUN pip install python-firebase
+RUN pip install firebase-admin
