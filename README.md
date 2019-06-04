@@ -1,9 +1,28 @@
 Welcome to DeviceHub!
 This cooperative IOT development application is very simple to use.
 
-Run below line for download run_devicehub.sh
+Let's make run_devicehub.sh
 
-curl -L -o run_devicehub.sh https://docs.google.com/uc?export=download
+#!/bin/bash
+
+docker -v
+
+if [ $? != "0" ]
+then
+	curl -fsSL https://get.docker.com/ | sudo sh
+fi
+
+sudo docker stop devicehub_api
+sudo docker rm devicehub_api
+sudo docker stop ouroboros
+sudo docker rm ouroboros
+
+sudo docker run -d --restart always -t --net=host -v /var/run/docker.sock:/var/run/docker.sock --name devicehub_api kijen98/devicehub_api:$1 $2
+
+sudo docker run -d --restart always --name ouroboros -v /var/run/docker.sock:/var/run/docker.sock pyouroboros/ouroboros -i 30
+
+
+And execute this line for setting permission.
 
 chmod +x run_devicehub.sh
 
