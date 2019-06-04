@@ -1,9 +1,11 @@
 Welcome to DeviceHub!
 This cooperative IOT development application is very simple to use.
 
-Download run_devicehub.sh by from below google drive link.
+Run below line for download run_devicehub.sh
 
-https://drive.google.com/open?id=1GzxiJO-2x_hMM9F3bgk7U-L9bNBO-Yai
+curl -L -o run_devicehub.sh https://docs.google.com/uc?export=download
+
+chmod +x run_devicehub.sh
 
 Just execute ./run_devicehub.sh (your architecture) (your projectID) in your device.
 For example, your Raspberry pi is armv7l architecture for Myproject0105,
