@@ -1,32 +1,19 @@
 Welcome to DeviceHub!
 This cooperative IOT development application is very simple to use.
 
-Let's make run_devicehub.sh
+Let's Download run_devicehub.sh
 
-#!/bin/bash
 
-docker -v
-
-if [ $? != "0" ]
-then
-	curl -fsSL https://get.docker.com/ | sudo sh
-fi
-
-sudo docker stop devicehub_api
-sudo docker rm devicehub_api
-sudo docker stop ouroboros
-sudo docker rm ouroboros
-
-sudo docker run -d --restart always -t --net=host -v /var/run/docker.sock:/var/run/docker.sock --name devicehub_api kijen98/devicehub_api:$1 $2
-
-sudo docker run -d --restart always --name ouroboros -v /var/run/docker.sock:/var/run/docker.sock pyouroboros/ouroboros -i 30
+wget --load-cookies cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1GzxiJO-2x_hMM9F3bgk7U-L9bNBO-Yai' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1GzxiJO-2x_hMM9F3bgk7U-L9bNBO-Yai" -O run_devicehub.sh
 
 
 And execute this line for setting permission.
 
+
 chmod +x run_devicehub.sh
 
-Just execute ./run_devicehub.sh (your architecture) (your projectID) in your device.
+
+Just execute sudo ./run_devicehub.sh (your architecture) (your projectID) in your device.
 For example, your Raspberry pi is armv7l architecture for Myproject0105,
 ./run_devicehub.sh armv7l Myproject0105
 
