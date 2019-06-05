@@ -39,10 +39,16 @@ sudo docker logs devicehub_api
 
 
 [Example of Executing images]
+
 Image1)
+
 Name: kijen98/wordpress:x86_64
+
 Option: --network bridge -e MYSQL_ROOT_PASSWORD=examplepassword
 
+
 Image2)
+
 Name: kijen98/mysql:x86_64
+
 Option: --network bridge -p 80:80
