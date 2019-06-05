@@ -1,4 +1,4 @@
-FROM kijen98/devicehub_base:latest
+FROM kijen98/devicehub_base:x86_64
 
 RUN apt-get update
 RUN apt-get install curl -y
