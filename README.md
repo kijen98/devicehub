@@ -42,13 +42,8 @@ sudo docker logs devicehub_api
 
 Image1)
 
-Name: kijen98/mysql:x86_64
+Name: kijen98/nodejs:x86_64
 
-Option: --net=host -p 3306:3306 -e MYSQL_ROOT_PASSWORD=examplepassword
+Option: --net=host
 
-
-Image2)
-
-Name: kijen98/wordpress:x86_64
-
-Option: --net=host -p 80:80
+You can see Express sample page on your localhost:3000 !
