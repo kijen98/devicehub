@@ -27,7 +27,6 @@ class AsyncTask:
 
     def get_config(self):
         det_change = 0
-
         imageref = self.deviceref + '/image'
         ref = db.reference(imageref)
         dict = ref.get()
@@ -121,13 +120,14 @@ if __name__ == '__main__':
         deviceref = projectref + '/device/' + ip_address
         testref = db.reference(deviceref)
 
-        if ((testref.get() != None)):
+        if(testref.get() != None):
             if len(testref.get().keys()) >= 1:
-                break
+                break;
 
         print("There is no device config in Project... Try to refinding " + str(try_time))
         sys.stdout.write("\033[F")
         time.sleep(5)
+
 
     task = AsyncTask(deviceref)
     task.exec_by_config()
